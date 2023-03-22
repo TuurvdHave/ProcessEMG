@@ -1,6 +1,6 @@
 # README #
 
-This code is originally developed by Riad Akhundov (Riad.Akhundov@uon.edu.au) and adapted by Miel Willems and van der Have Arthur in order to fit the requirements of the Human Movement Biomechanics Research Group Leuven. 
+This code (https://github.com/RiadAkhundov/EMG_Classifier) is originally developed by Riad Akhundov (Riad.Akhundov@uon.edu.au) and adapted by Miel Willems and van der Have Arthur in order to fit the requirements of the Human Movement Biomechanics Research Group Leuven. 
 
 This code automatically classifies EMG (Noise, Unusable, Usable, Good) using a pretrained deep learning neural network (AlexNet), filters the EMG, stores the classification results in a excel file and in specific folders. At last it stores all the data in a 
 matlab strucuture which can be loaded back in to further postproces. You can find the published paper explaining the classification methods in this folder. 
