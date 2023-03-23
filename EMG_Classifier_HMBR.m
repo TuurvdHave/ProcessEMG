@@ -121,7 +121,9 @@ dirClassifier = [folder, fsp, 'Classifier_', participant];
 mkdir(dirClassifier);
 
 dirImages = [dirClassifier, fsp, 'Images'];
+if exist(dirImages,'dir')
 rmdir(dirImages)
+end 
 mkdir(dirImages);
 mkdir([dirImages, fsp, '1_Good']);
 mkdir([dirImages, fsp, '2_Usable']);
@@ -244,7 +246,7 @@ for s=1:numTrials
         disp(err.message)
         disp('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%')
     end
-    EMG.(fileList(s).name) = matFiles(s);
+    EMG.(fileList(s).name(1:end-4)) = matFiles(s);
 end
 save(fullfile(fileList(s).folder,'EMG.mat'),'EMG')
 [numEMGmax, locEMGmax] = max(numEMG); %Find maximum number of EMG for later sorting
