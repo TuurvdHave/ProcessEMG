@@ -122,13 +122,17 @@ mkdir(dirClassifier);
 
 dirImages = [dirClassifier, fsp, 'Images'];
 if exist(dirImages,'dir')
-rmdir(dirImages)
-end 
+    delete([dirImages, fsp, '1_Good'])
+    delete([dirImages, fsp, '2_Usable']);
+    delete([dirImages, fsp, '3_Noise']);
+    delete([dirImages, fsp, '4_NoSignal']);
+else
 mkdir(dirImages);
 mkdir([dirImages, fsp, '1_Good']);
 mkdir([dirImages, fsp, '2_Usable']);
 mkdir([dirImages, fsp, '3_Noise']);
 mkdir([dirImages, fsp, '4_NoSignal']);
+end 
 
 dirXLSX = [dirClassifier, fsp, 'XLSX'];
 mkdir(dirXLSX);
