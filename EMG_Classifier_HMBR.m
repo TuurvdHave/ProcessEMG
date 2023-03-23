@@ -244,7 +244,7 @@ for s=1:numTrials
         disp(err.message)
         disp('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%')
     end
-    EMG.fileList(s).name = matFiles(s);
+    EMG.(fileList(s).name) = matFiles(s);
 end
 save(fullfile(fileList(s).folder,'EMG.mat'),'EMG')
 [numEMGmax, locEMGmax] = max(numEMG); %Find maximum number of EMG for later sorting
