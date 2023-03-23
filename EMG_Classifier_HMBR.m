@@ -122,10 +122,26 @@ mkdir(dirClassifier);
 
 dirImages = [dirClassifier, fsp, 'Images'];
 if exist(dirImages,'dir')
-    delete([dirImages, fsp, '1_Good'])
-    delete([dirImages, fsp, '2_Usable']);
-    delete([dirImages, fsp, '3_Noise']);
-    delete([dirImages, fsp, '4_NoSignal']);
+    A = dir([dirImages, fsp, '1_Good']);
+        for k = 1:length(A)
+            delete([dirImages, fsp, '1_Good',  '\' A(k).name])
+        end
+    clearvars A 
+    A = dir([dirImages, fsp, '2_Usable']);
+        for k = 1:length(A)
+            delete([dirImages, fsp, '2_Usable',  '\' A(k).name])
+        end
+    clearvars A 
+    A = dir([dirImages, fsp, '3_Noise']);
+        for k = 1:length(A)
+            delete([dirImages, fsp, '3_Noise',  '\' A(k).name])
+        end
+    clearvars A 
+    A = dir([dirImages, fsp, '4_NoSignal']);
+        for k = 1:length(A)
+            delete([dirImages, fsp, '4_NoSignal',  '\' A(k).name])
+        end
+    clearvars A 
 else
 mkdir(dirImages);
 mkdir([dirImages, fsp, '1_Good']);
