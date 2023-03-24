@@ -46,7 +46,7 @@ end
 
 %Asking input of the user 
 
-Firstanswer = inputdlg({'Low pass filter (Hz)','Band pass filter (Hz)','Manual crop?','White EMG used?','Blue EMG used?'},'Analyses',[1 35],{'6','[20 400]','Yes/No','Not used/Used','Not used/Used'});
+Firstanswer = inputdlg({'Low pass filter (Hz)','Band pass filter (Hz)','Manual crop?','White EMG used?','Blue EMG used?','Outside?'},'Analyses',[1 35],{'6','[20 400]','Yes/No','Not used/Used','Not used/Used','Yes/No'});
 
 if strcmpi(Firstanswer{4,1},'used') 
 submuscles = inputdlg({'Muscle channel White 1?','Muscle channel White 2?','Muscle channel White 3?',...
@@ -103,6 +103,7 @@ end
 if ~exist('EMG_Classifier_AlexNet_v4d','var') == 1
     str = mfilename('fullpath');
     cd(str(1:end-19))
+    addpath([pwd, fsp,'bin'])
     load ([pwd, fsp,'bin',fsp,'EMG_Classifier_AlexNet_v4d']) 
 end
 tic;
@@ -217,8 +218,9 @@ for s=1:numTrials
     units2 = contains(upper(matFiles(s).analogsInfo.units2),'V');           %EMG units are always in V 
     locEMG = find(units2==1 & label2==1);                                   %Find EMG locations
     locEMG = locEMG';
+    if strcmpi(Firstanswer{6,1},'No')
     locEMG(:,33:34) = [];
-    
+    end 
     %select only channels that were used in acquisition
     for channel = 1:size(channels_used,2)
          locEMG_upd(:,channel) = locEMG(:,channels_used(channel));   
@@ -250,13 +252,13 @@ for s=1:numTrials
 
     %Filtering
     Rate = matFiles(s).EMGs{2,end};
-    [b,a] = butter(4,str2num(Firstanswer{2,1})/(Rate/2),'bandpass');
-    [b2,a2] = butter(4,str2num(Firstanswer{1,1})/(Rate/2),'low');
+    [b,a] = butter(4,str2num(Firstanswer{2,1})./(Rate/2),'bandpass');
+    [b2,a2] = butter(4,str2num(Firstanswer{1,1})./(Rate/2),'low');
 
     for col=1:size(matFiles(s).RawEMGs,2)
         matFiles(s).RawEMGs(:,col) = matFiles(s).RawEMGs(:,col) - mean(matFiles(s).RawEMGs(:,col)); %Raw offset-corrected data
-        matFiles(s).FiltEMGs(:,col) = filtfilt(b,a,matFiles(s).RawEMGs(:,col)); %Bandpass filtered data
-        matFiles(s).Envelopes(:,col) = filtfilt(b2,a2,  (matFiles(s).FiltEMGs(:,col))); %Lowpass filtered data
+        matFiles(s).FiltEMGs(:,col) = abs(filtfilt(b,a,matFiles(s).RawEMGs(:,col))); %Bandpass filtered data
+        matFiles(s).Envelopes(:,col) = filtfilt(b2,a2,(matFiles(s).FiltEMGs(:,col))); %Lowpass filtered data
     end
     
     numEMG(s,1) = length(matFiles(s).EMGlabels); %Get number of EMGs ix`n this c3d
@@ -268,7 +270,6 @@ for s=1:numTrials
     end
     EMG.(fileList(s).name(1:end-4)) = matFiles(s);
 end
-save(fullfile(fileList(s).folder,'EMG.mat'),'EMG')
 [numEMGmax, locEMGmax] = max(numEMG); %Find maximum number of EMG for later sorting
 
 userview = memory; mem1 = userview.MemUsedMATLAB/1024^3; %Memory usage
@@ -433,6 +434,14 @@ catch err
         disp('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%')
 end
 
+for i = 1 : size(fileList,1)
+    ch = size(channels_used,2);
+    da = class_matrix((i*ch-ch+1):(ch*i),5);
+    for ii = 1: size(da,1)
+    EMG.(fileList(i).name(1:end-4)).Class(ii) = str2double(da{ii,1}(1));
+    end 
+end 
+save(fullfile(fileList(s).folder,'EMG.mat'),'EMG')
 userview = memory; mem4 = userview.MemUsedMATLAB/1024^3;
 t4 = toc;
 disp(['%% Finished classifying in ' num2str(t4) 'sec, using ' num2str(mem4) 'GB of RAM' ' %%']);disp('%')
