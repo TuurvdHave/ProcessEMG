@@ -2,6 +2,8 @@
 
 This code (https://github.com/RiadAkhundov/EMG_Classifier) is originally developed by Riad Akhundov (Riad.Akhundov@uon.edu.au) and adapted by Miel Willems and van der Have Arthur in order to fit the requirements of the Human Movement Biomechanics Research Group Leuven. 
 
+Requires MATLAB (2018b or newer, newest MATLAB version is strongly recommended), Deep Learning Toolbox and the Parallel Computing Toolbox.
+
 This code automatically classifies EMG (Noise, Unusable, Usable, Good) using a pretrained deep learning neural network (AlexNet) (download neural network here: https://kuleuven-my.sharepoint.com/:u:/g/personal/tuur_vanderhave_kuleuven_be/EUoWda688MRJlix6LEvlrnUBFIfhA2DIvgbSLAtj3vqZrw?e=KcMEoH and store this file in the bin folder), filters the EMG, stores the classification results in a excel file and in specific folders. At last it stores all the data in a 
 matlab strucuture which can be loaded back in to further postproces. You can find the published paper explaining the classification methods in this folder. 
 
