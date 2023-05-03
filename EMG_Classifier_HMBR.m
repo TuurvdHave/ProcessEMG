@@ -235,7 +235,7 @@ for s=1:numTrials
     
     timelist = (1:length( matFiles(s).RawEMGs))';
     timelist = timelist./1000;
-    Secondanswer = inputdlg({'start crop time in sec','end crop time in sec'},c3dName(s,1),[1 35],{'0','4.5'});
+    Secondanswer = inputdlg({'start crop time in sec','end crop time in sec'},char(c3dName{s,1}),[1 35],{'0','4.5'});
     start_ind = find(timelist(:,1)==str2num(Secondanswer{1,1}));
     stop_ind = find(timelist(:,1)==str2num(Secondanswer{2,1}));
 
