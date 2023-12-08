@@ -104,14 +104,11 @@ if ~exist('EMG_Classifier_AlexNet_v4d','var') == 1
     str = mfilename('fullpath');
     cd(str(1:end-19))
     addpath([pwd, fsp,'bin'])
-    addpath([pwd, fsp,'ecg-removal'])
+    addpath([pwd, fsp,'bin'])
     load ([pwd, fsp,'bin',fsp,'EMG_Classifier_AlexNet_v4d']) 
 end
 tic;
-    addpath([pwd, fsp,'bin'])
-    addpath([pwd, fsp,'bin/ecg-removal'])
-    folder2 = fileparts(which([pwd, fsp,'bin/ecg-removal/ecg_removal.m']));
-    addpath(genpath(folder2));
+
 %Turn unnecessary warnings off 
 warning('off', 'btk:ReadAcquisition')
 warning('off', 'MATLAB:MKDIR:DirectoryExists')
