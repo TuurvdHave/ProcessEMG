@@ -76,6 +76,10 @@ for i = 1:32
     end 
 end 
 
+if strcmpi(Firstanswer{7,1},'yes')
+   ecg_answer = inputdlg(muscles,'ECG-filtering per muscle, answer with yes or no',[1 35]);
+end 
+
 %% Getting Data & Requirements Checks
 %Change the current folder to the folder of this m-file (if user does "Add to Path" instead of "Change Folder")
 if(~isdeployed) 
@@ -261,7 +265,7 @@ for s=1:numTrials
 
     for col=1:size(matFiles(s).RawEMGs,2)
         matFiles(s).RawEMGs(:,col) = matFiles(s).RawEMGs(:,col) - mean(matFiles(s).RawEMGs(:,col)); %Raw offset-corrected data
-        if strcmpi(Firstanswer{7,1},'yes') 
+        if strcmpi(Firstanswer{7,1},'yes') && strcmpi(ecg_answer{col,1},'yes')
             matFiles(s).RawEMGs(:,col) = ecg_removal(matFiles(s).RawEMGs(:,col)'); % ECG-removal
         end 
         matFiles(s).FiltEMGs(:,col) = abs(filtfilt(b,a,matFiles(s).RawEMGs(:,col))); %Bandpass filtered data

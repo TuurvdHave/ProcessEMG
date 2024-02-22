@@ -12,7 +12,8 @@ matlab strucuture which can be loaded back in to further postproces. You can fin
 2) Select the folder where you stored all the c3d files of the participant you want to analyze
 3) Define your low pass and bass pass filter in the dialog window. You could manually crop the window if you want by defining the start and end timestamp in a later pop up window.
 4) Indictate which EMG system you used
-5) Indicate if you want to filter out ECG signals. These methods and codes are copied from https://github.com/ime-luebeck/ecg-removal and based on scientific papers described in the readme of this github.
+5) Indicate if you want to filter out ECG signals. Later on, a pop up window will be shown where you will have to indicate which on muscle you want to use this filter. Use yes or no in this pop up window. !Be carefull don't use this filter on every signal even is there isn't any ecg measured. it will influence your results! 
+ These methods and codes are copied from https://github.com/ime-luebeck/ecg-removal and based on scientific papers described in the readme of this github.
  In the function ecg_removal.m, three different output signals based on filtering methods can be choosen. When you want to change this, change it in this function. 
 5) Define which muscles you measured on which channel with the specific muscles
 
