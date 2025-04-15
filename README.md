@@ -4,7 +4,7 @@ This code (https://github.com/RiadAkhundov/EMG_Classifier) is originally develop
 
 Requires MATLAB (2018b or newer, newest MATLAB version is strongly recommended), Deep Learning Toolbox and the Parallel Computing Toolbox.
 
-This code automatically classifies EMG (Noise, Unusable, Usable, Good) using a pretrained deep learning neural network (AlexNet) (download neural network here: https://kuleuven-my.sharepoint.com/:u:/g/personal/tuur_vanderhave_kuleuven_be/EUoWda688MRJlix6LEvlrnUBFIfhA2DIvgbSLAtj3vqZrw?e=KcMEoH and store this file in the bin folder), filters the EMG, stores the classification results in a excel file and in specific folders. At last it stores all the data in a 
+This code automatically classifies EMG (Noise, Unusable, Usable, Good) using a pretrained deep learning neural network (AlexNet) (download neural network here: (https://kuleuven-my.sharepoint.com/:u:/g/personal/tuur_vanderhave_kuleuven_be/EUoWda688MRJlix6LEvlrnUBBaXfyY3c2xhE1TTA_3ZIWQ?e=mBuFb2) and store this file in the bin folder), filters the EMG, stores the classification results in a excel file and in specific folders. At last it stores all the data in a 
 matlab strucuture which can be loaded back in to further postproces. You can find the published paper explaining the classification methods in this folder. 
 
 #How to run the code: 
